@@ -56,21 +56,35 @@ function displayStills(container){
     // console.log(container.images.still);
     var el =$("<img>");
     el.attr("src",container.images.still);
+    el.on("click",function(){
+        var tmp = $(this).attr("src");
+        if (tmp == container.images.still){
+            $(this).attr("src",container.images.gif);
+        }
+        else {
+            $(this).attr("src",container.images.still);
+        }
+        
+    });
     // console.log(el.attr("src"));
     $("#stillDiv").append(el);
+    $("#stillDiv > img").wrap("<span class='picInfo'></span>");
     
-    var elgif =$("<img>");
-    elgif.attr("src",container.images.gif);
-    $("#gifDiv").append(elgif);
-
+    // var elgif =$("<img>");
+    // elgif.attr("src",container.images.gif);
+    // $("#gifDiv").append(elgif);
+    
     
 
 }
 
 
+$(document).ready(function(){
+    displayButtons(topics);
+    fetchData('deepdream');
+});
 
-displayButtons(topics);
 
-fetchData('deepdream');
+
 // console.log (stillDivs)
 

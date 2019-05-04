@@ -1,0 +1,4 @@
+Load still images to page.  Attach a hidden div to place the animated gif.  Wrap a div around the image to store the data
+attributes.
+
+when that works start to look at the search functionality.
