@@ -11,8 +11,21 @@ function displayButtons(items){
     for (var i in items){
         var topic = items[i];
         var msg = $("<button data-item="+topic+" class=topicBtn>").text(topic);
+        msg.on("click",function(){
+            fetchData($(this).attr("data-item"));
+        });
         $("#buttonsDiv").prepend(msg);
     }
+    var clrWrap = $("<div id='clearBtnDiv' style='self-align:right'>");
+    var clr = $("<button class=clearBtn>").text("Clear Screen");
+    clrWrap.append(clr);
+    clr.on("click",function(){
+        $("#stillDiv").empty();
+    });
+    $("#buttonsDiv").append(clrWrap);
+    // console.log($("#buttonsDiv").height());
+    $("#container").css("padding-top",$("#buttonsDiv").height());
+    $("#topicDiv").css("padding-top",$("#buttonsDiv").height());
 
 }
 
@@ -50,10 +63,10 @@ function fetchData(searchTerm){
 
 //Display Functions
 
-//Definitely want to display stills and data first then load the animated pics later (or onclick)
+//Definitely want to display stills and data first then load the animated pics onclick
 function displayStills(container){
-    //fill in
-    // console.log(container.images.still);
+  
+
     var el =$("<img>");
     el.attr("src",container.images.still);
     el.on("click",function(){
@@ -66,13 +79,27 @@ function displayStills(container){
         }
         
     });
-    // console.log(el.attr("src"));
-    $("#stillDiv").append(el);
-    $("#stillDiv > img").wrap("<span class='picInfo'></span>");
+    el.css("width","40%").css("margin-left","5%").css("margin-bottom","5%");
+    wrapper = $("<span style='position:relative;'>");
+    wrapper.append(el);
+    wrapper.append("<span class='picInfo'>"+container.title+"</span>");
+    wrapper.append("<div class='ratingInfo' style='text-align:center;position:absolute;z-index:12;'>Rating: "+container.rating+"</div>");
+    $("#stillDiv").append(wrapper);
     
-    // var elgif =$("<img>");
-    // elgif.attr("src",container.images.gif);
-    // $("#gifDiv").append(elgif);
+
+    $(".picInfo").css("position","absolute").css("margin","auto")
+        .css("top","50%").css("left","30%").css("z-index","10").css("width","60%")
+        .css("border","2px solid white").css("text-align","center")
+        .css("background-color","gray").css("opacity",".75").css("color","white");
+    
+    $(".ratingInfo").css("position","absolute").css("margin","auto")
+    .css("top","-90%").css("left","30%").css("z-index","10").css("width","60%")
+    .css("border","2px solid white").css("text-align","center")
+    .css("background-color","gray").css("opacity",".75").css("color","white");
+
+    // $(".ratingInfo").css("left","50%").css("top","10%");
+    $("#stilDiv").css("display","flex").css("justify-content","space-around");
+ 
     
     
 
@@ -80,11 +107,14 @@ function displayStills(container){
 
 
 $(document).ready(function(){
+
+    $("#addTopicBtn").click(function(){
+        // console.log('submitting');
+        topics.push($("#newTopic").val());
+        $("#buttonsDiv").empty();
+        displayButtons(topics);
+    });
     displayButtons(topics);
-    fetchData('deepdream');
+
 });
-
-
-
-// console.log (stillDivs)
 

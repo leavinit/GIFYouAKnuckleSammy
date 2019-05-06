@@ -1,0 +1,17 @@
+.navBar{
+    width:100%;
+    position: relative;
+    display : flex;
+}
+#container {
+    margin-top : 50px;
+}
+
+#topicDiv{
+    background-color:#ddd;
+    position: fixed;
+    padding: 2em;
+    right: -20%;
+    margin-top : 50px;
+    transform: translate(-50%, -50%);
+}

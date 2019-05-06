@@ -2,3 +2,10 @@ Load still images to page.  Attach a hidden div to place the animated gif.  Wrap
 attributes.
 
 when that works start to look at the search functionality.
+
+
+-------------------
+
+for each of the buttons:
+add the image,gif,title,rating to the data-field
+click the button
