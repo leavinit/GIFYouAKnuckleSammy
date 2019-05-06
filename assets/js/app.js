@@ -42,7 +42,7 @@ function displayButtons(items){
                 scrollTarget = $("#stillDiv").children().last();
                 sTid =scrollTarget.attr("id");
                 console.log(sTid);
-                $("#"+sTid).css("outline","1px solid blue");
+                // $("#"+sTid).css("outline","1px solid blue");
                 scroll("body","#"+sTid);
             }
             firstRun = false;
@@ -104,43 +104,67 @@ function displayStills(container){
 
     var el =$("<img>");
     el.attr("src",container.images.still);
+    
+    el.css("width","40%").css("margin-left","5%").css("margin-bottom","5%");
+    //hover will hide the info and ratings divs, and show the 'play' image
+    playImg = $("<img src='assets/images/video-play-icon.png'>");
+    playImg.css("width","40%").css("margin-left","5%").css("margin-bottom","5%").css("display","absolute");
+    playImgWrap = $("<span class='playImg' style='position:relative;'>");
+    playImgWrap.append(playImg);
+    playImgWrap.hide();
+    wrapper = $("<span style='position:relative;'>");
+    
+    wrapper.append(el);
+    
+    wrapper.append("<span class='picInfo'>"+container.title+"</span>");
+    wrapper.append("<div class='ratingInfo' style='text-align:center;position:absolute;z-index:12;'>Rating: "+container.rating+"</div>");
+    wrapper.append(playImgWrap);
+    
+    $("#stillDiv").append(wrapper);
+    
+
     el.on("click",function(){
         var tmp = $(this).attr("src");
         if (tmp == container.images.still){
             $(this).attr("src",container.images.gif);
+
         }
         else {
             $(this).attr("src",container.images.still);
+ 
         }
         
     });
-    el.css("width","40%").css("margin-left","5%").css("margin-bottom","5%");
-    //hover will hide the info and ratings divs, and show the 'play' image
+    playImgWrap.hover(function(){
+        
+        $(this).css("")
+        playImgWrap.click(function(){
+
+        })
+    });
+
     el.hover(function(){
         console.log('hovering');
         console.log ($(this).next());
         $(this).next().hide();
         $(this).next().next().hide();
+        $(this).next().next().next().show();
         $(this).css("cursor","pointer");
     
     },function(){
         $(this).next().show();
         $(this).next().next().show();
         $(this).css("cursor","auto");
+        $(this).next().next().next().hide();
     });
+    
 
-    playImg = $("<img src='assets/images/video-play-icon.png'>");
-    
-    wrapper = $("<span style='position:relative;'>");
-    
-    wrapper.append(el);
-    wrapper.append("<span class='picInfo'>"+container.title+"</span>");
-    wrapper.append("<div class='ratingInfo' style='text-align:center;position:absolute;z-index:12;'>Rating: "+container.rating+"</div>");
-    
-    
-    $("#stillDiv").append(wrapper);
-    
-    
+
+    $(".playImg").css("position","absolute").css("margin","auto")
+    .css("top","-100%").css("left","30%").css("z-index","10").css("width","60%")
+    .css("border","2px solid white").css("text-align","center")
+    .css("background-color","gray").css("opacity",".75").css("color","white");
+
     $(".picInfo").css("position","absolute").css("margin","auto")
         .css("top","50%").css("left","30%").css("z-index","10").css("width","60%")
         .css("border","2px solid white").css("text-align","center")
@@ -152,7 +176,7 @@ function displayStills(container){
     .css("background-color","gray").css("opacity",".75").css("color","white");
 
     // $(".ratingInfo").css("left","50%").css("top","10%");
-    $("#stilDiv").css("display","flex").css("justify-content","space-around");
+    // $("#stilDiv").css("display","flex").css("justify-content","space-around");
  
 }
 
