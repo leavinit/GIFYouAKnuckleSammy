@@ -7,12 +7,45 @@ var topics = [
 ];
 
 
+//utility function to auto scroll the page when new images added
+// https://stackoverflow.com/a/14490167
+
+function scroll(divOuter,targetDiv){
+    var holdingDiv = $(divOuter),
+        scrollTo = $(targetDiv);
+    console.log("outer " + divOuter + " target " + targetDiv);
+    $('html,body').animate({scrollTop: scrollTo.offset().top+50});
+
+    // holdingDiv.animate({
+    //     scrollTop: scrollTo.offset().top - holdingDiv.offset().top + holdingDiv.scrollTop()
+    // });
+}
+
+var firstRun = true;
 function displayButtons(items){
+    var offset = 0;
     for (var i in items){
         var topic = items[i];
-        var msg = $("<button data-item="+topic+" class=topicBtn>").text(topic);
+        //Funtions to retrieve items from topics array and display them w/
+        // click handlers attached to each button generated
+
+        var msg = $("<button data-item="+topic+" data-offset="+offset+" class=topicBtn>").text(topic);
+        
         msg.on("click",function(){
-            fetchData($(this).attr("data-item"));
+            fetchData($(this).attr("data-item"),$(this).attr("data-offset"));
+            offset+=10            ;
+            $(this).attr("data-offset", offset);
+            if(!firstRun){
+                // scroll("#container","."+$("#container").last().class());
+                var x1=$("#stillDiv").children().last()
+                x1.uniqueId();
+                scrollTarget = $("#stillDiv").children().last();
+                sTid =scrollTarget.attr("id");
+                console.log(sTid);
+                $("#"+sTid).css("outline","1px solid blue");
+                scroll("body","#"+sTid);
+            }
+            firstRun = false;
         });
         $("#buttonsDiv").prepend(msg);
     }
@@ -21,6 +54,7 @@ function displayButtons(items){
     clrWrap.append(clr);
     clr.on("click",function(){
         $("#stillDiv").empty();
+        firstRun = true;
     });
     $("#buttonsDiv").append(clrWrap);
     // console.log($("#buttonsDiv").height());
@@ -29,11 +63,11 @@ function displayButtons(items){
 
 }
 
-function fetchData(searchTerm){
+function fetchData(searchTerm,pageOffset){
     
     var apiURL = "https://api.giphy.com/v1/gifs/search?" +
     "api_key="+API_KEY+"&q="+searchTerm+
-    "&limit="+IMG_LIMIT+"&offset=0&rating=R&lang=en";
+    "&limit="+IMG_LIMIT+"&offset="+pageOffset+"&rating=R&lang=en";
     
 
     $.ajax({
@@ -64,6 +98,7 @@ function fetchData(searchTerm){
 //Display Functions
 
 //Definitely want to display stills and data first then load the animated pics onclick
+
 function displayStills(container){
   
 
@@ -80,13 +115,32 @@ function displayStills(container){
         
     });
     el.css("width","40%").css("margin-left","5%").css("margin-bottom","5%");
+    //hover will hide the info and ratings divs, and show the 'play' image
+    el.hover(function(){
+        console.log('hovering');
+        console.log ($(this).next());
+        $(this).next().hide();
+        $(this).next().next().hide();
+        $(this).css("cursor","pointer");
+    
+    },function(){
+        $(this).next().show();
+        $(this).next().next().show();
+        $(this).css("cursor","auto");
+    });
+
+    playImg = $("<img src='assets/images/video-play-icon.png'>");
+    
     wrapper = $("<span style='position:relative;'>");
+    
     wrapper.append(el);
     wrapper.append("<span class='picInfo'>"+container.title+"</span>");
     wrapper.append("<div class='ratingInfo' style='text-align:center;position:absolute;z-index:12;'>Rating: "+container.rating+"</div>");
+    
+    
     $("#stillDiv").append(wrapper);
     
-
+    
     $(".picInfo").css("position","absolute").css("margin","auto")
         .css("top","50%").css("left","30%").css("z-index","10").css("width","60%")
         .css("border","2px solid white").css("text-align","center")
@@ -100,10 +154,9 @@ function displayStills(container){
     // $(".ratingInfo").css("left","50%").css("top","10%");
     $("#stilDiv").css("display","flex").css("justify-content","space-around");
  
-    
-    
-
 }
+
+
 
 
 $(document).ready(function(){
