@@ -17,9 +17,11 @@
 }
 
 @media screen and (max-width: 768px) {
+    
     #topicDiv {
       background-color: rgb(74, 92, 122);
       position : fixed;
+      margin: auto;
       right: auto;
       transform: none;
       padding : .5em;
@@ -29,7 +31,7 @@
       left:0;
       bottom: 0;
       width: 100%;
-      overflow:none;
+      
       color: white;
       /* top : 30px; */
       z-index : 1000;
