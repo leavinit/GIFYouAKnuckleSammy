@@ -11,7 +11,8 @@
     background-color:#ddd;
     position: fixed;
     padding: 2em;
-    right: -20%;
+    right: -15%;
+    width: 25%;
     margin-top : 50px;
     transform: translate(-50%, -50%);
 }
@@ -27,14 +28,22 @@
       padding : .5em;
       margin:auto;
       text-align:center;
-      padding-top:0;
+      padding:0;
       left:0;
+      
       bottom: 0;
       width: 100%;
+
       
       color: white;
       /* top : 30px; */
       z-index : 1000;
       margin-top : 0;
+
+    }
+
+    
+    #topicDiv p{
+        display : none;
     }
   }
