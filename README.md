@@ -7,7 +7,7 @@ An app I developed for the UofM Coding Bootcamp that showcases the giphy.com dev
 ## Technologies Used
 - JQuery : A JavaScript library to dramatically ease both visual display (CSS, DOM manipulation) and off-site requests (AJAX calls to the GIPHY.com api)
 - BootStrap : A CSS framework to standardize the look and feel of the site and also provide mobile responsiveness
-- GIPHY.com Dev Api:  An interface maintained by GIPHY.com to allow developers programatic access to that site's assets and functionality
+- GIPHY.com Dev Api:  An interface maintained by GIPHY.com to allow developers programmatic access to that site's assets and functionality
 
 ## View My Other Work
 ### https://leavinit.github.io/Portfolio/  : Portfolio
