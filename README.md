@@ -9,6 +9,6 @@ An app I developed for the UofM Coding Bootcamp that showcases the giphy.com dev
 - BootStrap : A CSS framework to standardize the look and feel of the site and also provide mobile responsiveness
 - GIPHY.com Dev Api:  An interface maintained by GIPHY.com to allow developers programmatic access to that site's assets and functionality
 
-## View My Other Work
+## View My Other Projects
 ### https://leavinit.github.io/Portfolio/  : Portfolio
 ### https://github.com/leavinit : GitHub Repositories
